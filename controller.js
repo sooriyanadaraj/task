@@ -14,8 +14,11 @@ class TaskController {
 
     async list(req, res) {
         try {
-            let list = await Task.find({ id: req.body.id })
-            let count = await Task.find({ id: req.body.id }).countDocuments()
+            const limit = parseInt(req.body.limit)
+            const page = parseInt(req.body.page)
+            const skip = (page - 1) * limit
+            let list = await Task.find({ deleted: false }).sort({ _id: -1 }).skip(skip).limit(limit)
+            let count = await Task.find({ deleted: false }).countDocuments()
             let output = {
                 list,
                 count,
@@ -54,15 +57,15 @@ class TaskController {
     }
 
     //hard delete
-    async delete(req, res) {
-        try {
-            await Task.deleteOne({ _id: req.body.id })
-            return res.status(200).json({ success: true, message: "Task deleted permanently" });
-        }
-        catch (e) {
-            return res.status(400).json({ success: false, message: "Something Went Wrong !" });
-        }
-    }
+    // async delete(req, res) {
+    //     try {
+    //         await Task.deleteOne({ _id: req.body.id })
+    //         return res.status(200).json({ success: true, message: "Task deleted permanently" });
+    //     }
+    //     catch (e) {
+    //         return res.status(400).json({ success: false, message: "Something Went Wrong !" });
+    //     }
+    // }
 }
 
 module.exports = TaskController
