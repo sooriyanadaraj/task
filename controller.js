@@ -5,7 +5,8 @@ class TaskController {
 
     async create(req, res) {
         try {
-            const task = await new Task(req.body).save();
+            const task = await new Task(req.body).sa
+            ve();
             return res.status(200).json({ success: true, data: task, message: "New Task Created" });
         } catch (e) {
             return res.status(400).json({ success: false, message: "Something Went Wrong !" });
@@ -32,11 +33,8 @@ class TaskController {
 
     async update(req, res, next) {
         try {
-            let task = await Task.findOne({ _id: req.body.id });
-            let updates = Object.keys(req.body)
-            updates.forEach((update) => task[update] = req.body[update])
-            await task.save()
-            res.status(200).send({ success: true, data: task, message: "Successfully Updated task Details " })
+            let value = await Task.updateOne({ _id: req.body.id }, req.body);
+            res.status(200).send({ success: true, data: value, message: "Successfully Updated task Details " })
         }
         catch (e) {
             return res.status(400).json({ success: false, message: "Something Went Wrong !" });
