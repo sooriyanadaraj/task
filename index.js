@@ -9,6 +9,6 @@ app.use(taskRoute)
 
 const port = process.env.PORT || 3002
 
-const server = app.listen(port, () => {
-    console.log("Task Running on : localhost", process.env.PORT);
+app.listen(port, () => {
+    console.log("Task Running on =>  http://localhost:", process.env.PORT);
 })
