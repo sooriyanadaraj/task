@@ -1,21 +1,16 @@
 const mongoose = require('mongoose');
 
 var taskSchema = mongoose.Schema({
-    
-  
+
     name: {
         type: String,
         required: true,
     },
-    expiry: {
+    status: {
         type: Boolean,
-        default: false
+        default: true
     },
-    active: {
-        type: Boolean,
-        default: false
-    },
-     deleted: {
+    deleted: {
         type: Boolean,
         default: false,
     }

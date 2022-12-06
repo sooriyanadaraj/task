@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const options = { useNewUrlParser: true };
+mongoose.set('strictQuery', false);
 
 // Mongodb connection
 mongoose.connect(process.env.MONGODB_URL);
@@ -8,6 +8,7 @@ mongoose.connect(process.env.MONGODB_URL);
 mongoose.connection.on('connected', function() {
     console.log('Mongoose connection is open ');
 });
+
 
 // Mongodb connection error
 mongoose.connection.on('error', function(err) {

@@ -19,12 +19,6 @@ class TaskController {
         return res.status(200).json({ success: true, data: output, message: "Task Listed !" });
     }
 
-   
-    // async update(req, res) {
-    //     let update = await Task.updateOne({ _id: req.body._id }, req.body);
-    //     return res.status(200).json({ success: true, data: update, message: "task update" })
-    // }
-
     async update(req, res, next) {
         let task = await Task.findOne({ _id: req.body.id });
         let updates = Object.keys(req.body)
