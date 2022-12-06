@@ -5,8 +5,7 @@ class TaskController {
 
     async create(req, res) {
         try {
-            const task = await new Task(req.body).sa
-            ve();
+            const task = await new Task(req.body).save();
             return res.status(200).json({ success: true, data: task, message: "New Task Created" });
         } catch (e) {
             return res.status(400).json({ success: false, message: "Something Went Wrong !" });
