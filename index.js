@@ -1,11 +1,15 @@
 require('dotenv').config({ path: __dirname + '/config/.env' })
 require('./config/db')
 const express = require('express')
+const cookieParser = require('cookie-parser')
 const taskRoute = require('./routers/task')
+const userRoute = require('./routers/user')
 
 const app = express()
 app.use(express.json())
-app.use(taskRoute)
+app.use(cookieParser(process.env.COOKIE_SECRET))
+app.use('/task', taskRoute)
+app.use('/user', userRoute)
 
 const port = process.env.PORT || 3002
 
