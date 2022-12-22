@@ -16,6 +16,17 @@ class UserController {
             if (findEmail) {
                 return res.status(400).json({ success: false, message: `${req.body.email} is already used by another one please continue with another email` })
             }
+            if (req.files) {
+                if (req.files.profile_image && req.files.profile_image[0]) {
+                    user.profile_image = req.files.profile_image ? req.files.profile_image[0].path : '';
+                }
+            }
+            if (req.body.profile_pic && req.body.profile_pic != null) {
+                var base64Str = req.body.profile_pic;
+                var path = 'uploads/profile/';
+                var optionalObj = { 'fileName': 'profile-pic-' + req.body.email, 'type': 'png' };
+                user.profile_image = base64ToImage(base64Str, path, optionalObj);
+            }
             const user = await new User(req.body).save();
             return res.status(200).json({ success: true, data: user, message: "Registered Successfully !" });
         }
